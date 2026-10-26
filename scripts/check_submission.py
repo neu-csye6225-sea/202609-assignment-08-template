@@ -34,6 +34,9 @@ REQUIRED_TTL = 60
 ROUTE53_NS = re.compile(r"^ns-\d+\.awsdns-\d+\.(com|net|org|co\.uk)$")
 DOMAIN_RE = re.compile(r"^(?=.{4,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$")
 PLACEHOLDERS = {"yourdomain.me", "example.me", "<yourdomain>.me", "domain.me"}
+# Students must use <name>.me (so the API is api.<name>.me). The instructors' own domains are also accepted.
+STUDENT_DOMAIN_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.me$")
+INSTRUCTOR_DOMAINS = {"madchili.com", "sushisoft.com"}
 
 T_A, T_NS, T_CNAME, T_SOA = 1, 2, 5, 6
 RCODES = {0: "NOERROR", 1: "FORMERR", 2: "SERVFAIL", 3: "NXDOMAIN", 4: "NOTIMP", 5: "REFUSED"}
@@ -200,7 +203,10 @@ def read_domain(root: Path) -> tuple[str | None, str]:
         return None, f"domain.txt still contains the placeholder '{lines[0]}'. Replace it with your domain."
     if not DOMAIN_RE.match(d):
         return None, f"'{lines[0]}' is not a valid domain name."
-    return d, f"Domain: {d}"
+    if d not in INSTRUCTOR_DOMAINS and not STUDENT_DOMAIN_RE.match(d):
+        return None, (f"'{d}' is not allowed. Use a domain of the form <name>.me (for example jdoe-csye.me), "
+                      f"so your API is api.<name>.me: exactly three parts, 'api', your name, and 'me'.")
+    return d, f"Domain: {d} (API name: api.{d})"
 
 
 def read_instance_ip(root: Path) -> tuple[str | None, str]:
