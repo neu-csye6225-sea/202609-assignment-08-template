@@ -102,9 +102,9 @@ When the 4 `awsdns` name servers come back, the delegation is working. If you st
 
 ## Part 3: Run Your Library API
 
-You'll reuse your Assignment 7 server and Terraform.
+Create your Assignment 8 repository by using the `Use Template` button: [neu-csye6225-sea/202609-assignment-08-template](https://github.com/neu-csye6225-sea/202609-assignment-08-template.git).  You'll reuse your server app code and Terraform templates from Assignment 7.
 
-1. Copy `app/` and `terraform/` from your Assignment 7 repository into this repo. You don `terraform/terraform.tfstate`:
+1. Copy `app/` and `terraform/` from your Assignment 7 repository into this repo. Copy the `terraform/terraform.tfstate` as well.:
 
    ```bash
    # from the root of this (Assignment 8) repository
@@ -131,7 +131,7 @@ You'll reuse your Assignment 7 server and Terraform.
    # {"status": "ok"}
    ```
 
-> **From now on, run Terraform only from this repository.** Two copies of the same state file in two repos will drift apart.
+> **From now on, run Terraform only from this repository.**
 
 ## Part 4: Create the `api` Record
 
