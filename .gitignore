@@ -1,0 +1,14 @@
+# Terraform working files (the state file itself IS committed)
+.terraform/
+*.tfstate.backup
+crash.log
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
